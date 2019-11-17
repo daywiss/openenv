@@ -14,6 +14,7 @@ Parse process.env into a deeply nested javascript object using configurable conv
     'socket.host':'localhost',
     'express.port':'4321'
     'express.host':'localhost',
+    'whitelist':'http://example1.com,http://example2.com'
   }
 
   const config = require('parseenv')(process.env)
@@ -30,6 +31,8 @@ Parse process.env into a deeply nested javascript object using configurable conv
       port:4321,
       host:'localhost',
     },
+    //if values have a comma(,) in them, it gets interpreted as an array
+    whitelist:['http://example1.com','http://example2.com']
   }
 
 ```
@@ -39,7 +42,8 @@ Its is sometimes necessary for a configuration object to be more complex than wh
 in a standard process.env of string:string mappings. This library defines a convention to define keys 
 which map to nested paths in an object, as well as rules for parsing arrays and numbers from values.
 Advanced configuration allows you to prefix or regex filter unecessary variables from your
-final configuation object.
+final configuation object. If you can follow these conventions in your env then you dont need
+any specific env parsing logic in your application, simplifying your app configuration. 
 
 ## API
 
@@ -58,7 +62,3 @@ const config = parseEnv(process.env,{
   keyParser:x=>x.replace(prefix,'')  //all keys will pass through this parser, by default it will remove the prefix from a matching key.
 })
 ```
-
-
-
-

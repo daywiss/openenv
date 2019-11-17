@@ -1,12 +1,31 @@
 {
   "name": "parseenv",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "main": "index.js",
   "license": "MIT",
+  "description":"Parse process.env into a deeply nested javascript object using configurable conventions.",
   "dependencies": {
     "lodash": "^4.17.15"
   },
   "devDependencies": {
     "tape": "^4.11.0"
-  }
+  },
+  "homepage": "https://github.com/daywiss/parseenv",
+  "bugs": {
+    "url": "https://github.com/daywiss/parseenv/issues"
+  },
+  "repository": {
+    "url": "https://github.com/daywiss/parseenv"
+  },
+  "author": "daywiss@gmail.com",
+  "license": "ISC",
+  "keywords":[
+    "process.env",
+    "env",
+    "config",
+    "options",
+    "json",
+    "parsing",
+    "pojo"
+  ]
 }
