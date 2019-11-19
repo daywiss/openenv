@@ -1,8 +1,9 @@
-# Parse ENV
-Parse process.env into a deeply nested javascript object using configurable conventions.
+# Open ENV
+Use some simple conventions to read process.env into a deeply nested javascript object recognizing
+arrays and numbers.
 
 ## Install
-`yarn add parseenv`
+`yarn add openenv` or `npm install openenv`
 
 ## Basic Usage
 
@@ -17,7 +18,7 @@ Parse process.env into a deeply nested javascript object using configurable conv
     'whitelist':'http://example1.com,http://example2.com'
   }
 
-  const config = require('parseenv')(process.env)
+  const config = require('openenv')(process.env)
 
   //config output
   {
@@ -45,20 +46,43 @@ Advanced configuration allows you to prefix or regex filter unecessary variables
 final configuation object. If you can follow these conventions in your env then you dont need
 any specific env parsing logic in your application, simplifying your app configuration. 
 
+There are many other libraries like this available, the main difference with this one is that you
+can configure your delimiters (ex: use '_' instead of '.' for paths), as well as Regex key filtering 
+(ex: only parse envs starting with lowercase), map values and other options.
+
 ## API
 
-### parseEnv(process.env,options) => config
+### openenv(process.env,options) => config
 ```js
-const parseEnv = require('parseenv')
+const openenv = require('openenv')
 
 //the second object is optional, if not provided it will use default values.
-const config = parseEnv(process.env,{
-  //the following are all optional options.
-  regex:undefined     //specify a regex rule for matching to keys, keys which do not match are ignored in final output.
-  prefix:''           //specify only keys with this prefix to be parsed into the final config. Prefixes will be removed from the final key.
-  arrayDelimiter:','  //specify an array delimiter, if seen in the value, the parser will interpret the value as an array of values.
-  pathDelimiter:'.'   //specify a path delimiter, if seen in a key, the parser will split the string and interpret the array as a path into the final config.
-  valueParser:x=>JSON.parse(x)       //all values will run through this parser, if an error occurs the raw string is passed instead.
-  keyParser:x=>x.replace(prefix,'')  //all keys will pass through this parser, by default it will remove the prefix from a matching key.
+const config = openenv(process.env,{
+  //the following are all optional options with defaults shown.
+
+  //specify a regex rule for matching to keys, keys which do 
+  //not match are ignored in final output. Regex matches will 
+  //not be removed from final key.
+  regex:undefined,
+
+  //specify only keys with this prefix to be parsed into the 
+  //final config. Prefixes will be removed from the final key.
+  prefix:'',
+   
+  //specify an array delimiter, if seen in the value, 
+  //the parser will interpret the value as an array of values.
+  arrayDelimiter:','  
+
+  //specify a path delimiter, if seen in a key, the parser will 
+  //split the string and interpret the array as a path into the final config.
+  pathDelimiter:'.'   
+
+  //all values will run through this parser, before being split for array
+  //if an error occurs the raw string is passed instead.
+  valueParser:x=>JSON.parse(x)       
+
+  //all keys will pass through this parser, before being split by path
+  //by default it will remove the prefix from a matching key.
+  keyParser:x=>x.replace(prefix,'')  
 })
 ```
