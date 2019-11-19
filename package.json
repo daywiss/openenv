@@ -2,8 +2,8 @@
   "name": "openenv",
   "version": "0.0.1",
   "main": "index.js",
-  "license": "MIT",
-  "description":"Use some simple conventions to read process.env into a deeply nested javascript object.",
+  "license": "ISC",
+  "description": "Use some simple conventions to read process.env into a deeply nested javascript object recognizing arrays and numbers.",
   "dependencies": {
     "lodash": "^4.17.15"
   },
@@ -14,15 +14,14 @@
   "bugs": {
     "url": "https://github.com/daywiss/openenv/issues"
   },
-  "publishConfig":{
-    "access":"public"
+  "publishConfig": {
+    "access": "public"
   },
   "repository": {
     "url": "https://github.com/daywiss/openenv"
   },
   "author": "daywiss@gmail.com",
-  "license": "ISC",
-  "keywords":[
+  "keywords": [
     "process.env",
     "env",
     "json.parse",
